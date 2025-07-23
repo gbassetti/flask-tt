@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>Spadotto TT - TP data access</title>
+        <style>
+            table {
+                width: 100%;
+                max-width: 100%;
+                border-collapse: collapse;
+                text-align: left;
+                font-family: Arial, sans-serif;
+                box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            }
+            th, td {
+                padding: 8px;
+                border: 1px solid #ddd;
+                word-break: break-word;
+            }
+            th {
+                background-color: #f2f2f2;
+                color: #333;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            tr:hover {
+                background-color: #f1f1f1;
+            }
+            @media screen and (max-width: 600px) {
+                table, th, td {
+                    font-size: 0.8em;
+                }
+            }
+            .progress {
+                display: flex;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+            }
+            
+            .status {
+                color: white;
+                margin: auto;
+            }
+
+            .status h2 {
+                padding: 8px;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        {{exception_text}}
+            
+        <table>
+            <tr>
+                <th width="25%">Step</th>
+                <th width="25%">Status</th>
+                <th width="50%">Value</th>
+            </tr>
+            <tr>
+                <td>Authorization Code Request</td>
+                <td>{{auth_code_request_status}}</td>
+                <td>
+                    <br/>{{auth_code_response}}<br/>
+                    <br/><a href={{auth_link}}>Authorize</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Token Request</td>
+                <td>{{token_code_request_status}}</td>
+                <td>
+                    <br/>Token: {{token_value}}<br/>
+                    <br/>Expiration: {{token_expiration}}<br/>
+                    <br/><a href={{token_link}}>Get Token</a>
+                </td>
+            </tr>
+            <tr>
+                <td>Get Athletes Request</td>
+                <td>{{list_athletes_request_status}}</td>
+                <td>
+                    <br/>Result: {{list_athletes_value}}<br/>
+                    <br/>Timestamp: {{list_athletes_timestamp}}<br/>
+                    <br/><a href={{list_athletes_link}}>Get Athletes</a>
+            </td>
+            </tr>
+            <tr>
+                <td>Get Workouts Request</td>
+                <td>{{list_workouts_request_status}}</td>
+                <td>Choose the date range to fetch workouts. Maximum 45 days range.
+                <form method="POST">
+                    Start Date: <input type="date" id="startdate" name="startdate"/><br/>
+                    End Date: <input type="date" id="enddate" name="enddate"/><br/>
+                    <input type="submit">
+                </form>
+                    <br/>Result: {{list_workouts_value}}<br/>
+                    <br/>Timestamp: {{list_workouts_timestamp}}<br/>
+                </td>
+            </tr>
+            <tr>
+                <td>Workouts Request Status</td>
+                <td>{{list_workouts_request_status}}</td>
+                <td>Processed: <span id="innerCurrent">0</span> of <span id="innerTotalAthletes">0</span>
+                    <br><span id="innerUploaded">No database status</span><br/>
+            </td>
+            </tr>
+        </table>
+    </body>
+
+
+
+  
+<script src="{{url_for('static', filename='status.js')}}"></script>
+<script src="{{url_for('static', filename='dates.js')}}"></script>
+
+
+  
+</html>
+
+
